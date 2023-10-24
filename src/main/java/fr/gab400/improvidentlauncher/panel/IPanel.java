@@ -8,5 +8,4 @@ public interface IPanel {
 	GridPane getLayout();
 	void onShow();
 	String getName();
-	String getStylesheetPath();
 }

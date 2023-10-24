@@ -2,18 +2,20 @@ package fr.gab400.improvidentlauncher;
 
 import fr.flowarg.flowlogger.ILogger;
 import fr.flowarg.flowlogger.Logger;
+import fr.gab400.improvidentlauncher.panels.App;
 import fr.gab400.improvidentlauncher.utils.Helpers;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public class ImprovidentLauncher extends Application {
 	
-	private PanelManager panelManager;
 	private static ImprovidentLauncher instance;
 	private final ILogger logger;
-	private File launcherDir = Helpers.generateGamePath("Improvident");
+	private final File launcherDir = Helpers.generateGamePath(".improvident");
 	
 	public ImprovidentLauncher() {
 		instance = this;
@@ -22,10 +24,18 @@ public class ImprovidentLauncher extends Application {
 	}
 	
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage) {
 		this.logger.info("Starting Improvident Launcher...");
-		this.panelManager = new PanelManager(this, stage);
-		this.panelManager.init();
+		PanelManager panelManager = new PanelManager(this, stage);
+		panelManager.init();
+		
+		panelManager.showPanel(new App());
+	}
+	
+	@Override
+	public void stop() {
+		Platform.exit();
+		System.exit(0);
 	}
 	
 	public static ImprovidentLauncher getInstance() {
@@ -34,5 +44,9 @@ public class ImprovidentLauncher extends Application {
 	
 	public ILogger getLogger() {
 		return logger;
+	}
+	
+	public Path getLauncherDir() {
+		return Path.of(launcherDir.getAbsolutePath());
 	}
 }
