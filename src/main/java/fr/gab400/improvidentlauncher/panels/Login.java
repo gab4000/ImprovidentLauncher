@@ -63,7 +63,7 @@ public class Login extends Panel {
 		msLoginBtn.setTranslateY(20);
 		msLoginBtn.setMaxWidth(300);
 		msLoginBtn.setGraphic(view);
-		msLoginBtn.setOnMouseClicked(e -> this.authenticateMS());
+		msLoginBtn.setOnAction(e -> this.authenticateMS());
 		
 		loginWithMS.setTranslateY(-100);
 		loginWithMS.getChildren().addAll(loginWith, msLoginBtn);
@@ -74,6 +74,7 @@ public class Login extends Panel {
 		setCenterH(separator);
 		
 		GridPane loginOffline = new GridPane();
+		loginOffline.setMaxHeight(60);
 		
 		TextField username = new TextField();
 		username.setMaxWidth(300);

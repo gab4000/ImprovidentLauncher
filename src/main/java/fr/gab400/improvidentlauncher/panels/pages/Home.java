@@ -4,27 +4,22 @@ import fr.flowarg.flowupdater.FlowUpdater;
 import fr.flowarg.flowupdater.download.DownloadList;
 import fr.flowarg.flowupdater.download.IProgressCallback;
 import fr.flowarg.flowupdater.download.Step;
-import fr.flowarg.flowupdater.download.json.CurseFileInfo;
-import fr.flowarg.flowupdater.download.json.MCP;
-import fr.flowarg.flowupdater.utils.ModFileDeleter;
-import fr.flowarg.flowupdater.utils.UpdaterOptions;
-import fr.flowarg.flowupdater.versions.AbstractForgeVersion;
-import fr.flowarg.flowupdater.versions.ForgeVersionBuilder;
 import fr.flowarg.flowupdater.versions.VanillaVersion;
-import fr.flowarg.openlauncherlib.NoFramework;
 import fr.gab400.improvidentlauncher.ImprovidentLauncher;
+import fr.gab400.improvidentlauncher.Main;
 import fr.gab400.improvidentlauncher.PanelManager;
 import fr.gab400.improvidentlauncher.panels.App;
+import fr.gab400.improvidentlauncher.panels.Login;
+import fr.gab400.improvidentlauncher.utils.Unzip;
 import fr.theshark34.openlauncherlib.external.ExternalLaunchProfile;
 import fr.theshark34.openlauncherlib.external.ExternalLauncher;
 import fr.theshark34.openlauncherlib.minecraft.*;
+import fr.theshark34.openlauncherlib.util.Saver;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Font;
@@ -32,18 +27,21 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.MDL2IconFont;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class Home extends ContentPanel {
 	
 	GridPane boxPane = new GridPane();
 	private App app;
+	
+	private Saver saver = ImprovidentLauncher.getInstance().getSaver();
 	
 	ProgressBar progressBar = new ProgressBar();
 	Label stepLabel = new Label();
@@ -80,6 +78,26 @@ public class Home extends ContentPanel {
 		title.setTranslateY(-30);
 		this.layout.getChildren().add(title);
 		
+		Button logout = new Button();
+		logout.setGraphic(new MDL2IconFont("\uF3B1"));
+		logout.setPrefHeight(40);
+		logout.setPrefWidth(40);
+		setCenterV(logout);
+		setTop(logout);
+		setRight(logout);
+		logout.setTranslateX(-130);
+		logout.setTranslateY(-32);
+		logout.setOnAction(e -> {
+			if (this.isDownloading()) {
+				return;
+			}
+			saver.remove("msAccessToken");
+			saver.remove("msRefreshToken");
+			saver.save();
+			ImprovidentLauncher.getInstance().setAuthInfos(null);
+			this.panelManager.showPanel(new Login());
+		});
+		
 		Button settings = new Button("Parametres");
 		setCenterV(settings);
 		setTop(settings);
@@ -91,7 +109,8 @@ public class Home extends ContentPanel {
 		settings.setOnMouseClicked(event -> {
 			this.app.setPage(new Settings(app));
 		});
-		this.layout.getChildren().add(settings);
+		
+		this.layout.getChildren().addAll(logout, settings);
 		
 		setCenterH(progressBar);
 		setBottom(progressBar);
@@ -118,7 +137,6 @@ public class Home extends ContentPanel {
 		boxPane.getChildren().clear();
 		Button play = new Button("Travailler/Jouer");
 		play.setStyle("-fx-font-size: 15;-fx-background-color: #0078d7;");
-		play.getStyleClass().add(JMetroStyleClass.LIGHT_BUTTONS);
 		setCanTakeAllSize(play);
 		setCenterH(play);
 		setBottom(play);
@@ -178,7 +196,21 @@ public class Home extends ContentPanel {
 				fileWriter.close();
 			}
 			
-			String path = "https://kizilando.is-a-frontend.dev/Minecraft%20World%20Map/";
+			if (ImprovidentLauncher.getInstance().getSaver().get("map-created") == null) {
+				File source = new File(Objects.requireNonNull(Main.class.getResource("/Minecraft World Map.zip")).toURI());
+				File target = new File(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves/Minecraft World Map.zip");
+				try {
+					FileUtils.copyFile(source, target);
+					Unzip unzip = new Unzip();
+					unzip.unzip(target, Path.of(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves"));
+					target.delete();
+				} catch (IOException e) {
+					logger.err(e.getMessage());
+					e.printStackTrace();
+				}
+				saver.set("map-created", "true");
+				saver.save();
+			}
 			
 			final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
 					.withName("1.12")

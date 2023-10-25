@@ -2,6 +2,7 @@ package fr.gab400.improvidentlauncher;
 
 import fr.gab400.improvidentlauncher.panel.IPanel;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
@@ -26,6 +27,7 @@ public class PanelManager {
 	}
 	
 	public void init() {
+		this.stage.getIcons().add(new Image("/images/icon.png"));
 		this.stage.setTitle("ImprovidentLauncher");
 		this.stage.setWidth(WIDTH);
 		this.stage.setHeight(HEIGHT);
