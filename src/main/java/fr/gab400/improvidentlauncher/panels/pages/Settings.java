@@ -48,15 +48,16 @@ public class Settings extends ContentPanel {
 		back.setOnAction(e -> {
 			app.setPage(new Home(app));
 		});
-		boxPane.getChildren().add(back);
+		this.layout.getChildren().add(back);
 		
 		// Title
 		Label title = new Label(getName());
 		title.setFont(Font.font("Roboto", FontWeight.BOLD, FontPosture.REGULAR, 30f));
 		setCanTakeAllSize(title);
 		setTop(title);
+		setLeft(title);
 		title.setTranslateX(70);
 		title.setTranslateY(-30);
-		boxPane.getChildren().add(title);
+		this.layout.getChildren().add(title);
 	}
 }

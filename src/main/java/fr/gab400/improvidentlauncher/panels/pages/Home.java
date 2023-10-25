@@ -75,9 +75,10 @@ public class Home extends ContentPanel {
 		title.setFont(Font.font("Roboto", FontWeight.BOLD, FontPosture.REGULAR, 30f));
 		setCanTakeAllSize(title);
 		setTop(title);
+		setLeft(title);
 		title.setTranslateX(25);
 		title.setTranslateY(-30);
-		boxPane.getChildren().add(title);
+		this.layout.getChildren().add(title);
 		
 		Button settings = new Button("Parametres");
 		setCenterV(settings);
@@ -90,23 +91,25 @@ public class Home extends ContentPanel {
 		settings.setOnMouseClicked(event -> {
 			this.app.setPage(new Settings(app));
 		});
-		boxPane.getChildren().add(settings);
+		this.layout.getChildren().add(settings);
 		
 		setCenterH(progressBar);
 		setBottom(progressBar);
-		progressBar.setTranslateY(550);
+		progressBar.setTranslateY(500);
 		setCanTakeAllSize(progressBar);
 		progressBar.setMaxWidth(1000);
 		
 		setCenterH(stepLabel);
 		setBottom(stepLabel);
-		stepLabel.setTranslateY(500);
+		stepLabel.setTranslateY(450);
 		setCanTakeAllSize(stepLabel);
+		stepLabel.setFont(new Font(20));
 		
 		setCenterH(fileLabel);
 		setBottom(fileLabel);
-		fileLabel.setTranslateY(525);
+		fileLabel.setTranslateY(475);
 		setCanTakeAllSize(fileLabel);
+		fileLabel.setFont(new Font(20));
 		
 		this.showPlayButton();
 	}
@@ -119,7 +122,7 @@ public class Home extends ContentPanel {
 		setCanTakeAllSize(play);
 		setCenterH(play);
 		setBottom(play);
-		play.setTranslateY(550);
+		play.setTranslateY(500);
 		play.setPrefWidth(200);
 		play.setPrefHeight(50);
 		play.setOnAction(e -> this.play());
@@ -201,7 +204,7 @@ public class Home extends ContentPanel {
 		try {
 			GameInfos infos = new GameInfos("improvident", true, new GameVersion(gameVersion, GameType.V1_8_HIGHER), new GameTweak[]{});
 			
-			ExternalLaunchProfile profile = MinecraftLauncher.createExternalProfile(infos, GameFolder.FLOW_UPDATER, new AuthInfos("", "", ""));
+			ExternalLaunchProfile profile = MinecraftLauncher.createExternalProfile(infos, GameFolder.FLOW_UPDATER, new AuthInfos(ImprovidentLauncher.getInstance().getAuthInfos().getUsername(), ImprovidentLauncher.getInstance().getAuthInfos().getAccessToken(), ImprovidentLauncher.getInstance().getAuthInfos().getUuid()));
 			profile.getVmArgs().add("-Xmx2G");
 			ExternalLauncher launcher = new ExternalLauncher(profile);
 			
@@ -211,7 +214,6 @@ public class Home extends ContentPanel {
 			ImprovidentLauncher.getInstance().getLogger().info("Lancement en cours...");
 			
 			p.waitFor();
-			Platform.exit();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
