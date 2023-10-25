@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.nio.file.Path;
+import java.util.UUID;
 
 public class ImprovidentLauncher extends Application {
 	
@@ -90,6 +91,9 @@ public class ImprovidentLauncher extends Application {
 				this.logger.err(e.getMessage());
 				return false;
 			}
+		} else if (saver.get("offline-username") != null) {
+			this.authInfos = new AuthInfos(saver.get("offline-username"), UUID.randomUUID().toString(), UUID.randomUUID().toString());
+			return true;
 		}
 		return false;
 	}
