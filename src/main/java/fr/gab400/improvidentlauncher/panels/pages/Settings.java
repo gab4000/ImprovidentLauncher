@@ -48,7 +48,6 @@ public class Settings extends ContentPanel {
 		back.setOnAction(e -> {
 			app.setPage(new Home(app));
 		});
-		this.layout.getChildren().add(back);
 		
 		// Title
 		Label title = new Label(getName());
@@ -58,6 +57,15 @@ public class Settings extends ContentPanel {
 		setLeft(title);
 		title.setTranslateX(70);
 		title.setTranslateY(-30);
-		this.layout.getChildren().add(title);
+		
+		Label authors = new Label("Concept par Aywen\nMCP par KIZILANDO\nLauncher par gab400");
+		setBottom(authors);
+		setCenterH(authors);
+		authors.setTranslateY(525);
+		authors.setTranslateX(15);
+		authors.setFont(new Font(12));
+		
+		this.layout.getChildren().addAll(back, title);
+		this.boxPane.getChildren().addAll(authors);
 	}
 }
