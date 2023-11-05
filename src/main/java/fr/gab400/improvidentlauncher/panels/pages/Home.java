@@ -197,20 +197,35 @@ public class Home extends ContentPanel {
 			}
 			
 			if (ImprovidentLauncher.getInstance().getSaver().get("map-created") == null) {
-				File source = new File(Objects.requireNonNull(Main.class.getResource("/Minecraft World Map.zip")).toURI());
-				File target = new File(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves/Minecraft World Map.zip");
-				try {
-					FileUtils.copyFile(source, target);
-					Unzip unzip = new Unzip();
-					unzip.unzip(target, Path.of(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves"));
-					target.delete();
-				} catch (IOException e) {
-					logger.err(e.getMessage());
-					e.printStackTrace();
-				}
-				saver.set("map-created", "true");
-				saver.save();
-			}
+                try {
+
+                    InputStream resourceStream = Main.class.getResourceAsStream("/Minecraft World Map.zip");
+                    if (resourceStream == null) {
+                        throw new FileNotFoundException("La ressource Minecraft World Map.zip n'a pas été trouvée.");
+                    }
+
+
+                    File target = new File(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves/Minecraft World Map.zip");
+
+
+                    FileUtils.copyInputStreamToFile(resourceStream, target);
+
+
+                    Unzip unzip = new Unzip();
+                    unzip.unzip(target, Path.of(ImprovidentLauncher.getInstance().getLauncherDir() + "/saves"));
+
+
+                    target.delete();
+                    
+
+                    saver.set("map-created", "true");
+                    saver.save();
+                } catch (IOException e) {
+                    logger.err(e.getMessage());
+                    e.printStackTrace();
+                }
+
+            }
 			
 			final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
 					.withName("1.12")
