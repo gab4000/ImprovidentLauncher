@@ -44,9 +44,9 @@ public class PanelManager {
 		
 		this.stage.setScene(scene);
 		
-		this.layout.add(this.contentPane, 0, 0);
 		GridPane.setVgrow(this.contentPane, Priority.ALWAYS);
 		GridPane.setHgrow(this.contentPane, Priority.ALWAYS);
+		this.layout.add(this.contentPane, 0, 0);
 		
 		this.stage.show();
 	}

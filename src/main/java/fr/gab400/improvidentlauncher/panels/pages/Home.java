@@ -29,9 +29,7 @@ import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.MDL2IconFont;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Objects;

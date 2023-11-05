@@ -94,8 +94,7 @@ public class ImprovidentLauncher extends Application {
 		} else if (saver.get("offline-username") != null) {
 			this.authInfos = new AuthInfos(saver.get("offline-username"), UUID.randomUUID().toString(), UUID.randomUUID().toString());
 			return true;
-		}
-		return false;
+		} else return false;
 	}
 	
 	public AuthInfos getAuthInfos() {

@@ -43,7 +43,7 @@ public class Login extends Panel {
 		setLeft(title);
 		title.setTranslateX(25);
 		title.setTranslateY(25);
-		this.layout.getChildren().add(title);
+		this.layout.add(title, 0, 0);
 		
 		GridPane loginWithMS = new GridPane();
 		
