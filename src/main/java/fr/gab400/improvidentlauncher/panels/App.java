@@ -36,7 +36,6 @@ public class App extends Panel {
 		this.layout.add(topMenu, 0, 0);
 		
 		// TopMenu
-		setCanTakeAllSize(this.layout);
 		setTop(topMenu);
 		setCenterH(topMenu);
 		setCenterV(topMenu);

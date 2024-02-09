@@ -29,9 +29,7 @@ import jfxtras.styles.jmetro.JMetroStyleClass;
 import jfxtras.styles.jmetro.MDL2IconFont;
 import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
 import java.util.Objects;
@@ -229,7 +227,7 @@ public class Home extends ContentPanel {
 			
 			final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
 					.withName("1.12")
-					.withMCP("https://kizilando.is-a-frontend.dev/mcp.json")
+					.withMCP("https://github.com/gab4000/ImprovidentLauncher/tree/main/src/main/resources/mcp.json")
 					.build();
 			
 			final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()

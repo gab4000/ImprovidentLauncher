@@ -6,7 +6,7 @@
 
     <groupId>fr.gab400</groupId>
     <artifactId>ImprovidentLauncher</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.2</version> <!-- NOTATION : Versions.Ajouts.Patchs | EX : 1.7.3 -->
 
 
     <properties>
