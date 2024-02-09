@@ -227,7 +227,7 @@ public class Home extends ContentPanel {
 			
 			final VanillaVersion vanillaVersion = new VanillaVersion.VanillaVersionBuilder()
 					.withName("1.12")
-					.withMCP("https://github.com/gab4000/ImprovidentLauncher/tree/main/src/main/resources/mcp.json")
+					.withMCP("https://github.com/gab4000/ImprovidentLauncher/raw/main/src/main/resources/mcp.json")
 					.build();
 			
 			final FlowUpdater updater = new FlowUpdater.FlowUpdaterBuilder()
