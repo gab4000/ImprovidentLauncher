@@ -13,3 +13,5 @@
 
 **Windows :** Vous avez juste a télécharger le .exe et a l'exécuter pour obtenir ImprovidentMCP !\
 **macOS/Linux :** Telechargez le .zip, extrayez-le et lançez la commande `./launch.sh` depuis un terminal.
+
+### Releases [here](https://github.com/gab4000/ImprovidentLauncher/releases)
